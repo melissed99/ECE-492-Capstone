@@ -3,11 +3,12 @@ import os #to iterate over directories
 import cv2 #to do image tests, draw rectangles label image and stuff
 
 KNOWN_FACES_DIR = "known_faces"
-UNKNOWN_FACES_DIR = "unknown_faces"
+#UNKNOWN_FACES_DIR = "unknown_faces"
 TOLERANCE = 0.6 #LOWER THE TOLERANCE, more strict (more chances of known faces to be missed), HIGHER TOLERANCE, more chance for false positive (more faces incorrectly recognized)
 FRAME_THICKNESS = 3 #RECTANGLE FRAME FOR FACE DETECTION, IN PIXELS
 FONT_THICKNESS = 2
 MODEL = "cnn" #convolutional neural network, can also use hog (older way for image detection)
+video = cv2.VideoCapture(0) #video feed
 
 #load in known faces, have something for the unknowns to compare to
 print("loading known faces")
@@ -38,10 +39,12 @@ for name in os.listdir(KNOWN_FACES_DIR):
 print("processing unknown faces...")
 
 #loop over unknown faces folder that want to label
-for filename in os.listdir(UNKNOWN_FACES_DIR):
+#for filename in os.listdir(UNKNOWN_FACES_DIR):
+while True:
     #load images
-    print(f'Filename {filename}', end='')
-    image = face_recognition.load_image_file(os.path.join(UNKNOWN_FACES_DIR, filename))
+    #print(f'Filename {filename}', end='')
+    #image = face_recognition.load_image_file(os.path.join(UNKNOWN_FACES_DIR, filename))
+    ret, image = video.read()
 
     #locate the faces in the unknown images
     locations = face_recognition.face_locations(image, model=MODEL)
@@ -50,7 +53,7 @@ for filename in os.listdir(UNKNOWN_FACES_DIR):
 
     #if find a match with a known face, draw rectangle around face, using opencv
     #first need to conver image from RGB to BGR, since opencv uses this
-    image = cv2.cvtColor(image,cv2.COLOR_RGB2BGR)
+    #image = cv2.cvtColor(image,cv2.COLOR_RGB2BGR)
 
     #assume there might be more thaan one face in unknown image, find faces of different people
     print(f', found {len(encodings)} face(s)')
@@ -64,7 +67,7 @@ for filename in os.listdir(UNKNOWN_FACES_DIR):
         #take index value of any Trues, and look for name from known_names variable
         if True in results:
             match = known_names[results.index(True)]
-            print(f' -{match} from {results}')
+            print(f'Match found: {match}')
 
             #corners of face found to draw rectangle
             top_left = (face_location[3], face_location[0])
@@ -89,7 +92,10 @@ for filename in os.listdir(UNKNOWN_FACES_DIR):
             cv2.putText(image, match, (face_location[3] + 10, face_location[2] + 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200,200,200), FONT_THICKNESS)
 
 
-cv2.imshow(filename, image)
-cv2.waitKey(0)
-cv2.destroyWindow(filename)
+    cv2.imshow(filename, image)
+    # break if q is pressed
+    if cv2.waitKey(1) & 0xFF == ord("q"):
+        break
+    #cv2.waitKey(10000)
+    #cv2.destroyWindow(filename)
 
