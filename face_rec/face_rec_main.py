@@ -1,6 +1,7 @@
 import face_recognition
 import os #to iterate over directories
 import cv2 #to do image tests, draw rectangles label image and stuff
+from saveImage import saveImage
 
 KNOWN_FACES_DIR = "known_faces"
 #UNKNOWN_FACES_DIR = "unknown_faces"
@@ -88,11 +89,7 @@ while True:
             #write name
             cv2.putText(image, match, (face_location[3] + 10, face_location[2] + 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200,200,200), FONT_THICKNESS)
 
-        #    ret, frame = video.read() 
-            isSaved = cv2.imwrite('saved/test2.png', image) #save the frame where face has been located
-            if isSaved:
-                print("Visitor has been saved.")
-            break
+            saveImage(image, match) # will go ahead and save the image of the desired visitor 
 
     cv2.imshow(filename, image)
     # break if q is pressed
