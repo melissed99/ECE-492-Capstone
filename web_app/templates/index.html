@@ -1,20 +1,12 @@
-<html>
-	<head>
-		<title>Smart Office Defender - Visitor Records</title>
-	</head>
-	<body>
-        <h1>Visitor Records</h1>
-		<table>
-			<tr>
-				<th>Date</th>
-				<th>Image</th>
-			</tr>
-			{% for row in rows %}
-			<tr>
-				<td>{{ row.date }}</td>
-				<td>{{ row.image }}</td>
-			</tr>
-			{% endfor %}
-		</table>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Office Defender</title>
+</head>
+<body>
+    <a href="/records">View Visitor Records</a>
+    <br>
+    <a href="/import">Import friendly visitor images</a>
+</body>
 </html>
