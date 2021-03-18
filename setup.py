@@ -11,6 +11,7 @@ setup(
     description='Smart Office Defender',
     install_requires=[
         'Flask',
+        'pygame'
     ],
     entry_points={
         'console_scripts': [
