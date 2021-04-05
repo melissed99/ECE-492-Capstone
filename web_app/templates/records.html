@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<title>Smart Office Defender - Visitor Records</title>
+		<style>
+			table, th, td {
+				border: 1px solid black;
+				border-collapse: collapse;
+			}
+		</style>
+	</head>
+	<body>
+        <h1>Visitor Records</h1>
+		<table>
+			<tr>
+				<th>Date</th>
+				<th>Image</th>
+				<th>Action</th>
+			</tr>
+			{% for row in rows %}
+			<tr>
+				<td>{{ row.date }}</td>
+				<td><img src="photos/{{ row.img }}" alt="Visitor Img" width="400" height="200"></td>
+				<td>{{ row.action }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>
