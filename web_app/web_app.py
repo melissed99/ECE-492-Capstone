@@ -2,7 +2,7 @@ from flask import Flask, render_template, send_from_directory, request, flash, r
 import json
 import os
 
-app = Flask(__name__, static_folder='face_rec/saved')
+app = Flask(__name__, static_folder='face_rec/saved', static_url_path='/face_rec/saved')
 
 UPLOAD_FOLDER = 'web_app/uploaded_photos'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
