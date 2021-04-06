@@ -18,8 +18,8 @@
 			</tr>
 			{% for row in rows %}
 			<tr>
-				<td>{{ row.date }}</td>
-				<td><img src="photos/{{ row.img }}" alt="Visitor Img" width="400" height="200"></td>
+				<td>{{ row.datetime }}</td>
+				<td><img src="photos/{{ row.image_filename }}" alt="Visitor Img" width="400" height="200"></td>
 				<td>{{ row.action }}</td>
 			</tr>
 			{% endfor %}

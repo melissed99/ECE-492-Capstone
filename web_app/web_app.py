@@ -2,27 +2,29 @@ from flask import Flask, render_template, send_from_directory, request, flash, r
 import json
 import os
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__, static_folder='face_rec/saved')
 
-UPLOAD_FOLDER = 'uploaded_photos'
+UPLOAD_FOLDER = 'web_app/uploaded_photos'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 class VisitorRecord(object):
-    def __init__(self, date, action, img):
-        self.date = date
+    def __init__(self, date, action, image_filename, name, time):
+        self.datetime = date + ' ' + time
         self.action = action
-        self.img = img
+        self.image_filename = image_filename
+        self.name = name
 
 
 def read_data():
-    with open('data.json') as f:
+    with open('face_rec/data.json') as f:
         data = json.load(f)
 
     records = []
-    for d in data:
-        v = VisitorRecord(date=d['date'], action=d['action'], img=d['img'])
+    for d in data['records']:
+        v = VisitorRecord(date=d['date'], action=d['action'], image_filename=d['image_filename'],
+                          name=d['name'], time=d['time'])
         records.append(v)
 
     return records
