@@ -2,7 +2,7 @@ from flask import Flask, render_template, send_from_directory, request, flash, r
 import json
 import os
 
-app = Flask(__name__, static_folder='face_rec/saved', static_url_path='/face_rec/saved')
+app = Flask(__name__)
 
 UPLOAD_FOLDER = 'web_app/uploaded_photos'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -43,7 +43,7 @@ def display_records():
 
 @app.route('/photos/<path:filename>')
 def send_file(filename):
-    return send_from_directory(app.static_folder, filename)
+    return send_from_directory(os.path.join(app.static_folder, 'saved'), filename)
 
 
 @app.route('/import')
@@ -53,6 +53,8 @@ def render_import():
 
 @app.route('/import', methods=['POST'])
 def import_visitor_images():
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.mkdir(UPLOAD_FOLDER)
     uploaded_file = request.files['file']
     if uploaded_file.filename.split('.')[1] in ALLOWED_EXTENSIONS:
         # only saves png, jpg, or jpeg files
