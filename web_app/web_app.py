@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'web_app/uploaded_photos'
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'web_app/uploaded_photos')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -43,7 +43,10 @@ def display_records():
 
 @app.route('/photos/<path:filename>')
 def send_file(filename):
-    return send_from_directory(os.path.join(app.static_folder, 'saved'), filename)
+    current_path = os.getcwd()
+    photo_dir = os.path.join(current_path, 'face_rec/saved')
+    print(photo_dir)
+    return send_from_directory(photo_dir, filename)
 
 
 @app.route('/import')
@@ -66,7 +69,7 @@ def import_visitor_images():
 
 
 def main():
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
 
 
 if __name__ == '__main__':
