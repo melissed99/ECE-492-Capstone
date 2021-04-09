@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'web_app/uploaded_photos')
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'face_rec/known_faces')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -56,12 +56,25 @@ def render_import():
 
 @app.route('/import', methods=['POST'])
 def import_visitor_images():
-    if not os.path.exists(UPLOAD_FOLDER):
-        os.mkdir(UPLOAD_FOLDER)
+    name = request.form['name']
+    name = name.lower()
+    if name == '':
+        name = 'noname'
+    directory = os.path.join(UPLOAD_FOLDER, name)
+    if not os.path.exists(directory):
+        os.mkdir(directory)
     uploaded_file = request.files['file']
     if uploaded_file.filename.split('.')[1] in ALLOWED_EXTENSIONS:
         # only saves png, jpg, or jpeg files
-        uploaded_file.save(os.path.join(UPLOAD_FOLDER, uploaded_file.filename))
+        filepath = os.path.join(directory, uploaded_file.filename)
+        counter = 1
+        while os.path.exists(filepath):
+            # add a number between filename and extension (i.e. .png)
+            filename = uploaded_file.filename.split('.')
+            filename = filename[0] + str(counter) + '.' + filename[1]
+            filepath = os.path.join(directory, filename)
+            counter += 1
+        uploaded_file.save(filepath)
         print('Uploaded image file: {0}'.format(uploaded_file.filename))
     else:
         print('Upload failed: {0} is not a png, jpg, or jpeg file.'.format(uploaded_file.filename))

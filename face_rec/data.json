@@ -8,31 +8,10 @@
             "time": "20:31"
         },
         {
-            "name": "kath",
-            "date": "2021-04-03",
-            "time": "20:37",
-            "image_filename": "kath_2021-04-03 20.37.jpg",
-            "action": "No action."
-        },
-        {
             "name": "unknown",
             "date": "2021-04-03",
             "time": "20:37",
             "image_filename": "unknown_2021-04-03 20.37.jpg",
-            "action": "Action: Person did not leave. Nerf gun is triggered."
-        },
-        {
-            "name": "kath",
-            "date": "2021-04-03",
-            "time": "20:41",
-            "image_filename": "kath_2021-04-03 20.41.jpg",
-            "action": "No action."
-        },
-        {
-            "name": "unknown",
-            "date": "2021-04-03",
-            "time": "20:41",
-            "image_filename": "unknown_2021-04-03 20.41.jpg",
             "action": "Action: Person did not leave. Nerf gun is triggered."
         },
         {
@@ -41,13 +20,6 @@
             "time": "20:45",
             "image_filename": "unknown_2021-04-03 20.45.jpg",
             "action": "Action: Person left. Nerf gun is not triggered."
-        },
-        {
-            "name": "unknown",
-            "date": "2021-04-03",
-            "time": "20:45",
-            "image_filename": "unknown_2021-04-03 20.45.jpg",
-            "action": "Action: Person did not leave. Nerf gun is triggered."
         },
         {
             "name": "kath",
